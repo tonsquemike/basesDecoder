@@ -10,7 +10,7 @@ import java.util.TreeMap;
 public class Base
 {
     String[] lASCadenas;
-    StringBuilder objBuilder = new StringBuilder();
+    private StringBuilder objBuilder = new StringBuilder();
     String gSSalto = "\r\n";
 
     /**
@@ -21,7 +21,7 @@ public class Base
      */
     public Base(String lSCadenaGral)
     {
-        objBuilder.append("La expresión es: "+ gSSalto + lSCadenaGral + gSSalto);
+        getObjBuilder().append("La expresión es: "+ gSSalto + lSCadenaGral + gSSalto);
         String[] lASBases = lSCadenaGral.split(",");
         String lSRegex = "\\d+[{](\\d+([;]\\d+|[-]\\d+)*)[}]";
         ManejoER objManejoER  = new ManejoER(lSRegex);
@@ -35,11 +35,11 @@ public class Base
         }
         if (lECounter < lASBases.length)
         {
-            objBuilder.append("La expresión introducida no es la correcta, revisar la expresión de bases" + gSSalto);
+            getObjBuilder().append("La expresión introducida no es la correcta, revisar la expresión de bases" + gSSalto);
             System.exit(-1);
         }
 
-        objBuilder.append("Las bases introducidas son correctas" + gSSalto);
+        getObjBuilder().append("Las bases introducidas son correctas" + gSSalto);
         lASCadenas = lASBases;
     }
 
@@ -81,8 +81,8 @@ public class Base
                     {
                         if (objTreeMapStructure.containsKey(k))
                         {
-                            objBuilder.append("Conflictos en la generación de bases, revisar la expresion de entrada" + gSSalto);
-                            objBuilder.append("Salida: -1" + gSSalto);
+                            getObjBuilder().append("Conflictos en la generación de bases, revisar la expresion de entrada" + gSSalto);
+                            getObjBuilder().append("Salida: -1" + gSSalto);
                             System.exit(-1);
                         }else
                         {
@@ -93,8 +93,8 @@ public class Base
                 {
                     if (objTreeMapStructure.containsKey(Integer.parseInt(lASFormats[j].trim())))
                     {
-                        objBuilder.append("Conflictos en la generación de bases, revisar la expresion de entrada" + gSSalto);
-                        objBuilder.append("Salida: -1" + gSSalto);
+                        getObjBuilder().append("Conflictos en la generación de bases, revisar la expresion de entrada" + gSSalto);
+                        getObjBuilder().append("Salida: -1" + gSSalto);
                         System.exit(-1);
                     } else
                     {
@@ -104,10 +104,18 @@ public class Base
             }
         }
 
-        objBuilder.append("Las bases generadas son correctas, las bases son: " + gSSalto);
-        objBuilder.append(objTreeMapStructure.toString() + gSSalto);
-        objBuilder.append("Número de genes (-NGEN) " + objTreeMapStructure.size() + gSSalto);
+        getObjBuilder().append("Las bases generadas son correctas, las bases son: " + gSSalto);
+        getObjBuilder().append(objTreeMapStructure.toString() + gSSalto);
+        getObjBuilder().append("Número de genes (-NGEN) " + objTreeMapStructure.size() + gSSalto);
 
         return objTreeMapStructure;
+    }
+
+    public StringBuilder getObjBuilder() {
+        return objBuilder;
+    }
+
+    public void setObjBuilder(StringBuilder objBuilder) {
+        this.objBuilder = objBuilder;
     }
 }
